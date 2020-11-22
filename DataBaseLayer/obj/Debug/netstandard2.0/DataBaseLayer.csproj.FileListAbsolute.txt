@@ -1,0 +1,9 @@
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\bin\Debug\netstandard2.0\DataBaseLayer.deps.json
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\bin\Debug\netstandard2.0\DataBaseLayer.dll
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.csprojAssemblyReference.cache
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.AssemblyInfoInputs.cache
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.AssemblyInfo.cs
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\bin\Debug\netstandard2.0\DataBaseLayer.pdb
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.csproj.CoreCompileInputs.cache
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.dll
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\DataBaseLayer\obj\Debug\netstandard2.0\DataBaseLayer.pdb
