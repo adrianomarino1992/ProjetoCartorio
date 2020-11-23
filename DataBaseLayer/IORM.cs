@@ -2,8 +2,10 @@
 
 namespace DataBaseLayer
 {
-    public interface ICustomORM
+    public interface IORM
     {
+        bool Error { get; set; }
+        string Message { get; set; }
         bool CreateTable<T>();
 
         bool UpdateTable<T>();
@@ -12,11 +14,11 @@ namespace DataBaseLayer
 
         bool Edit<T>(T obj);
 
-        bool Remove<T>(object Id);
+        bool Remove<T>(T obj);
 
         bool Add<T>(T obj);
 
-        T Search<T>(object Id);
+        O Search<T,O>(object Id);
 
 
     }

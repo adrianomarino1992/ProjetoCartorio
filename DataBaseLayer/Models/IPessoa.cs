@@ -13,7 +13,7 @@ namespace DataBaseLayer.Models
         [DataBaseFlags.DBFlags(ColumnName = "txt_nome", UseDefaultNames = false, IsNullable = true, DataBaseValueType = "text")]
         string Nome { get; set; }
 
-        [DataBaseFlags.DBFlags(ColumnName = "txt_cpf", Unique = true ,UseDefaultNames = false, IsNullable = true, DataBaseValueType = "text")]
+        [DataBaseFlags.DBFlags(PrimaryKey = true ,ColumnName = "txt_cpf", Unique = true ,UseDefaultNames = false, IsNullable = true, DataBaseValueType = "text")]
         string CPF { get; set; }
 
         [DataBaseFlags.DBFlags(ColumnName = "txt_pai", UseDefaultNames = false, IsNullable = true, DataBaseValueType = "text")]

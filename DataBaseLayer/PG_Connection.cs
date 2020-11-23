@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using Npgsql;
 
@@ -52,20 +53,55 @@ namespace DataBaseLayer
 
         public object ExecuteQuery(string query)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _connection.Open();
+
+                NpgsqlDataAdapter ds = new NpgsqlDataAdapter(query, _connection);
+                
+                DataTable dt = new DataTable();
+
+                ds.Fill(dt);
+
+                return dt;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                _connection.Close();
+            }
         }
 
         public bool ExecuteScript(string query)
         {
             _connection.Open();
 
-            NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
 
-            cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-            _connection.Close();
+                _connection.Close();
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
+            finally
+            {
+                _connection.Close();
+            }
+
+           
+
+            
         }
 
         public bool TestConnection()
@@ -73,6 +109,7 @@ namespace DataBaseLayer
             try
             {
                 _connection.Open();
+
                 return true;
             }
             catch

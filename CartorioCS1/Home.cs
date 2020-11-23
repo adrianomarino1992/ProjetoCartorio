@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataBaseLayer;
 using DataBaseLayer.ORM;
 using DataBaseLayer.Models;
 
@@ -47,7 +46,7 @@ namespace CartorioCS1
 
             PG_Connection.ConString = conString;
 
-            CustomORM ORM = new CustomORM(PG_Connection.Instancia);
+            DefaultORM ORM = new DefaultORM(PG_Connection.Instancia);
                        
 
             if (ORM.CreateTable<INascimento>())
