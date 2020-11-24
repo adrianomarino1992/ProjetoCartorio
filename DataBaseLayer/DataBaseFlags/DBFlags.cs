@@ -17,6 +17,7 @@ namespace DataBaseLayer.DataBaseFlags
         public bool Private { get; set; } = false;
         public bool Unique { get; set; } = false;
         public bool UseDefaultNames { get; set; } = false;
+        public string LabelText { get; set; }
         public string ColumnName { get; set; }
         public string TableName { get; set; }
         public string SchemaName { get; set; }

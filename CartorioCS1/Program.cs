@@ -16,7 +16,7 @@ namespace CartorioCS1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Screen());
+            Application.Run(new Home());
         }
     }
 }

@@ -31,27 +31,32 @@ namespace CartorioCS1.Controls
         {
             InitializeComponent();
 
-            Flags.DBFlags piAttr = (Flags.DBFlags).GetCustomAttribute(typeof(Flags.DBFlags));
+            Flags.DBFlags piAttr = (Flags.DBFlags)operationType.GetCustomAttribute(typeof(Flags.DBFlags));
 
+            lblBuscar.Text = piAttr.LabelText;
 
             if (operationType == typeof(IPessoa))
             {
                 _operation = (Pessoa)Activator.CreateInstance(typeof(Pessoa));
+                lblTitulo.Text = "CADASTRAR PESSOAS";
             }
             else
             if (operationType == typeof(INascimento))
             {
                 _operation = (Nascimento)Activator.CreateInstance(typeof(Nascimento));
+                lblTitulo.Text = "CADASTRAR NASCIMENTOS";
             }
             else
             if (operationType == typeof(IObito))
             {
                 _operation = (Obito)Activator.CreateInstance(typeof(Obito));
+                lblTitulo.Text = "CADASTRAR OBITOS";
             }
             else
             if (operationType == typeof(ICasamento))
             {
                 _operation = (Casamento)Activator.CreateInstance(typeof(Casamento));
+                lblTitulo.Text = "CADASTRAR CASAMENTOS";
             }
 
             _connection = connection;
@@ -60,7 +65,7 @@ namespace CartorioCS1.Controls
 
             Reload(operationType);
 
-           
+
         }
 
         private void Reload(Type operationType, IOperation obj = null)
@@ -77,10 +82,10 @@ namespace CartorioCS1.Controls
             {
                 Flags.DBFlags piAttr = (Flags.DBFlags)pi.GetCustomAttribute(typeof(Flags.DBFlags));
 
-                
+
                 if (!piAttr.Private)
                 {
-                   
+
                     pnlContainer.Controls.Add(new Label()
                     {
                         Text = pi.Name + " : ",
@@ -95,7 +100,7 @@ namespace CartorioCS1.Controls
 
                     if (obj != null)
                     {
-                        if(obj.Id != 0)
+                        if (obj.Id != 0)
                             textBox.Text = pi.GetValue(obj).ToString();
                     }
 
@@ -135,7 +140,8 @@ namespace CartorioCS1.Controls
                     previewsType = typeof(INascimento);
                     _operation = _connection.Search<INascimento, Nascimento>(txtValue.Text);
 
-                }else                 
+                }
+                else
                 {
                     previewsType = typeof(ICasamento);
                     _operation = _connection.Search<ICasamento, Casamento>(txtValue.Text);
@@ -155,19 +161,22 @@ namespace CartorioCS1.Controls
         private void btnSalvar_Click(object sender, EventArgs e)
         {
 
-            if(_operation.Id != 0)
+            if (_operation.Id != 0)
             {
                 MessageBox.Show("Este registro ja existe, voce pode apenas editar ou excluir");
                 return;
             }
-                    
+
             foreach (KeyValuePair<PropertyInfo, Control> kp in _bindControlsValues)
             {
                 foreach (PropertyInfo po in _operation.GetType().GetPublicProperties())
                 {
 
+                    
+
                     if (po.Name == kp.Key.Name)
                     {
+                      
                         if (po.PropertyType == typeof(int))
                         {
                             try
@@ -234,7 +243,7 @@ namespace CartorioCS1.Controls
                 }
             }
             else
-            if (_operation.GetType() == typeof(INascimento))
+            if (_operation.GetType() == typeof(Nascimento))
             {
                 if (_connection.Save<INascimento>((INascimento)_operation))
                 {
@@ -247,7 +256,7 @@ namespace CartorioCS1.Controls
                 }
             }
             else
-            if (_operation.GetType() == typeof(IObito))
+            if (_operation.GetType() == typeof(Obito))
             {
                 if (_connection.Save<IObito>((IObito)_operation))
                 {
@@ -261,7 +270,7 @@ namespace CartorioCS1.Controls
             }
             else
             {
-                if (_connection.Save<ICasamento>((ICasamento)_operation))
+                if (_connection.Save<ICasamento>((Casamento)_operation))
                 {
                     MessageBox.Show(_connection.Message);
                     this.Over();
@@ -282,7 +291,7 @@ namespace CartorioCS1.Controls
 
                 if (_operation.GetType() == typeof(Pessoa))
                 {
-                   
+
 
                     if (_connection.Remove<IPessoa>((IPessoa)_operation))
                     {
@@ -322,9 +331,6 @@ namespace CartorioCS1.Controls
                     }
 
                 }
-
-
-                Reload(_operation.GetType(), _operation);
 
             }
             else

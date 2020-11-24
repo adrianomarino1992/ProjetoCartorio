@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DataBaseLayer.Models
 {
+    /// <summary>
+    /// Interface mais primitiva que extiste
+    /// </summary>
     public interface IOperation
     {
       

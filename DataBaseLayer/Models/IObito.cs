@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataBaseLayer.Models
 {
-    [DataBaseFlags.DBFlags(TableName = "tb_obito")]
+    [DataBaseFlags.DBFlags(TableName = "tb_obito", LabelText = "CPF")]
     public interface IObito : IOperation
     {
         [DataBaseFlags.DBFlags(ColumnName = "dt_registro", UseDefaultNames = false, DataBaseValueType = "date")]

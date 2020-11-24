@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataBaseLayer.Models
 {
-    [DataBaseFlags.DBFlags(TableName = "tb_nascimento")]
+    [DataBaseFlags.DBFlags(TableName = "tb_nascimento", LabelText = "Protocolo")]
     public interface INascimento : IOperation
     {
         

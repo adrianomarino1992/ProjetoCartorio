@@ -37,7 +37,39 @@ namespace DataBaseLayer.ORM
                     if (piAttr.Save)
                     {
 
-                        if (piAttr.PrimaryKey)
+                        if (piAttr.PrimaryKey && piAttr.ForeignKey != null)
+                        {
+                            DataBaseFlags.DBFlags attrForeign = (DataBaseFlags.DBFlags)
+                                piAttr.ForeignKey.GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
+
+                            foreach (PropertyInfo pf in piAttr.ForeignKey.GetPublicProperties())
+                            {
+
+                                DataBaseFlags.DBFlags pfAttr = (DataBaseFlags.DBFlags)pf.GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
+
+
+                                if (pfAttr.PrimaryKey)
+                                {
+                                    string IsNull;
+
+                                    if (!piAttr.IsNullable)
+                                    {
+                                        IsNull = " NOT NULL ";
+                                    }
+                                    else
+                                    {
+                                        IsNull = "";
+                                    }
+
+                                    SQL += $"\r\n{piAttr.ColumnName} {piAttr.DataBaseValueType}{IsNull},\r\n" +
+                                        $"FOREIGN KEY ({piAttr.ColumnName})" +
+                                        $"REFERENCES {attrForeign.TableName} ({pfAttr.ColumnName}),\r\n";
+                                    SQL += $"PRIMARY KEY ({piAttr.ColumnName}),\r\n";
+                                }
+                            }
+
+                        }
+                        else if (piAttr.PrimaryKey && piAttr.ForeignKey == null)
                         {
                             SQL += $"\r\n{piAttr.ColumnName} {piAttr.DataBaseValueType},\r\nPRIMARY KEY ({piAttr.ColumnName}),\r\n";
                         }
@@ -149,7 +181,7 @@ namespace DataBaseLayer.ORM
                 string updates = "";
 
                 string where = "";
-                
+
 
 
                 foreach (PropertyInfo pi in typeof(T).GetPublicProperties())
@@ -158,7 +190,7 @@ namespace DataBaseLayer.ORM
 
                     DataBaseFlags.DBFlags piAttr = (DataBaseFlags.DBFlags)pi.GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
 
-                    if(piAttr.PrimaryKey)
+                    if (piAttr.PrimaryKey)
                     {
                         where = $" WHERE {piAttr.ColumnName} = {pi.GetValue(obj)} ";
                     }
@@ -166,7 +198,7 @@ namespace DataBaseLayer.ORM
                     {
                         if (piAttr.Save)
                         {
-                            
+
 
                             if (new List<string> { "integer", "float" }.Contains(piAttr.DataBaseValueType))
                             {
@@ -181,7 +213,7 @@ namespace DataBaseLayer.ORM
 
                     }
 
-                   
+
 
                 }
 
@@ -206,7 +238,7 @@ namespace DataBaseLayer.ORM
             try
             {
                 DataBaseFlags.DBFlags attr = (DataBaseFlags.DBFlags)
-                        typeof(T).GetCustomAttribute(typeof(DataBaseFlags.DBFlags));               
+                        typeof(T).GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
 
                 string where = "";
 
@@ -221,7 +253,7 @@ namespace DataBaseLayer.ORM
                     if (piAttr.PrimaryKey)
                     {
                         where = $" WHERE {piAttr.ColumnName} = '{pi.GetValue(obj)}' ";
-                    }                   
+                    }
 
 
 
@@ -261,7 +293,7 @@ namespace DataBaseLayer.ORM
 
                     if (piAttr.Save)
                     {
-                        if(piAttr.DataBaseValueType != "serial")
+                        if (piAttr.DataBaseValueType != "serial")
                             cols += $"{piAttr.ColumnName} ,\r\n";
 
                         if (new List<string> { "integer", "float" }.Contains(piAttr.DataBaseValueType))
@@ -281,11 +313,11 @@ namespace DataBaseLayer.ORM
                 values = values.Remove(values.LastIndexOf(','));
                 string SQL = $"  INSERT INTO " + attr.TableName + $" ({cols})VALUES ({values});";
 
-               
+
 
                 bool result = _connection.ExecuteScript(SQL);
 
-                if(result)
+                if (result)
                 {
                     Message = "Salvo com sucesso !";
                 }
@@ -295,9 +327,9 @@ namespace DataBaseLayer.ORM
                 }
 
                 return result;
-               
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Error = true;
                 Message = ex.Message;
@@ -305,7 +337,7 @@ namespace DataBaseLayer.ORM
             }
         }
 
-        public virtual O Search<T,O>(object Id)
+        public virtual O Search<T, O>(object Id)
         {
             try
             {
@@ -313,7 +345,7 @@ namespace DataBaseLayer.ORM
                         typeof(T).GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
 
                 string where = "";
-               
+
 
 
                 foreach (PropertyInfo pi in typeof(T).GetPublicProperties())
@@ -323,7 +355,7 @@ namespace DataBaseLayer.ORM
                     DataBaseFlags.DBFlags piAttr = (DataBaseFlags.DBFlags)pi.GetCustomAttribute(typeof(DataBaseFlags.DBFlags));
 
                     if (piAttr.PrimaryKey)
-                    {                        
+                    {
                         where = $" WHERE {piAttr.ColumnName} = '{Id}' ";
                     }
 
@@ -337,7 +369,7 @@ namespace DataBaseLayer.ORM
 
                 object result = _connection.ExecuteQuery(SQL);
 
-                if(result.GetType() == typeof(bool))
+                if (result.GetType() == typeof(bool))
                 {
                     throw new Exception("Nada foi encontrado");
                 }
@@ -349,7 +381,7 @@ namespace DataBaseLayer.ORM
 
                     O objReturns = (O)Activator.CreateInstance(typeof(O));
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         if (reader.HasRows)
                         {
@@ -386,8 +418,8 @@ namespace DataBaseLayer.ORM
             {
                 throw ex;
             }
-            
-            
+
+
         }
 
         public DefaultORM(IConnection connection)
