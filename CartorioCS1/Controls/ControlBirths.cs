@@ -229,8 +229,16 @@ namespace CartorioCS1.Controls
             }
 
 
+            if (!_operation.Validar()) {
+
+                MessageBox.Show("PREENCHA TODOS OS CAMPOS");
+                return;
+            }
+            
+
             if (_operation.GetType() == typeof(Pessoa))
             {
+                
                 if (_connection.Save<IPessoa>((IPessoa)_operation))
                 {
                     MessageBox.Show(_connection.Message);

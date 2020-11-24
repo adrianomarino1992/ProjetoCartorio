@@ -5,12 +5,12 @@ using DataBaseLayer.Models;
 
 namespace BusinessLayer.Models
 {
-    public class Nascimento : INascimento
+    public class Nascimento : Operacao , INascimento
     {
         public DateTime DataRegistro { get; set; }
         public string Nascido { get; set; }
         public string Pai { get; set; }
         public string Mae { get; set; }
-        public int Id { get; set; }
+        
     }
 }

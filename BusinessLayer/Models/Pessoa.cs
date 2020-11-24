@@ -5,7 +5,7 @@ using DataBaseLayer.Models;
 
 namespace BusinessLayer.Models
 {
-    public class Pessoa : IPessoa
+    public class Pessoa : Operacao, IPessoa
     {
         public DateTime DataNascimento { get; set; }
         public string Nome { get; set; }
@@ -16,6 +16,6 @@ namespace BusinessLayer.Models
         public DateTime DataMae { get; set; }
         public string CPFPai { get; set; }
         public string CPFMae { get; set; }
-        public int Id { get; set ; }
+        
     }
 }
