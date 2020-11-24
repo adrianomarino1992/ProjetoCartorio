@@ -74,7 +74,6 @@ C:\Users\USER\Desktop\ProjetoORM\ProjetoCartorio\CartorioCS1\bin\Debug\System.Th
 C:\Users\USER\Desktop\ProjetoORM\ProjetoCartorio\CartorioCS1\bin\Debug\System.ValueTuple.xml
 C:\Users\USER\Desktop\ProjetoORM\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.csproj.CopyComplete
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.csprojAssemblyReference.cache
-C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.Controls.ControlBirths.resources
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.Properties.Resources.resources
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.Home.resources
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.csproj.GenerateResource.cache
@@ -111,3 +110,5 @@ C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\bin\Debug\System.ValueTuple.xml
 C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.csproj.CopyComplete
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.Controls.GenericScreen.resources
+C:\Users\Camila\Desktop\ProjetoCartorio\CartorioCS1\ProjetoCartorio\CartorioCS1\obj\Debug\CartorioCS1.Controls.ReportScreen.resources

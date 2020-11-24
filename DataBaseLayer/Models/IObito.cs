@@ -6,7 +6,9 @@ namespace DataBaseLayer.Models
 {
     [DataBaseFlags.DBFlags(TableName = "tb_obito", LabelText = "CPF")]
     public interface IObito : IOperation
-    {
+    { /// <summary>
+      /// Qualquer classe que implementa a interface IOperation pode utilizar o ORM
+      /// </summary>
         [DataBaseFlags.DBFlags(ColumnName = "dt_registro", UseDefaultNames = false, DataBaseValueType = "date")]
         DateTime DataRegistro { get; set; }
 

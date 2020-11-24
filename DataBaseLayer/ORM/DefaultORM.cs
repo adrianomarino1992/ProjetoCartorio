@@ -6,10 +6,12 @@ using System.Reflection;
 using System.Data;
 
 namespace DataBaseLayer.ORM
-{
+{   /// <summary>
+    /// Implementação default do IORM
+    /// </summary>
     public class DefaultORM : IORM
     {
-        private IConnection _connection;
+        protected IConnection _connection;
 
         public bool Error { get; set; } = false;
 
@@ -173,6 +175,9 @@ namespace DataBaseLayer.ORM
         /// <returns></returns>
         public virtual bool Edit<T>(T obj)
         {
+            Error = false;
+            Message = "Sem erros";
+
             try
             {
                 DataBaseFlags.DBFlags attr = (DataBaseFlags.DBFlags)
@@ -192,7 +197,7 @@ namespace DataBaseLayer.ORM
 
                     if (piAttr.PrimaryKey)
                     {
-                        where = $" WHERE {piAttr.ColumnName} = {pi.GetValue(obj)} ";
+                        where = $" WHERE {piAttr.ColumnName} = '{pi.GetValue(obj)}' ";
                     }
                     else
                     {
@@ -217,16 +222,32 @@ namespace DataBaseLayer.ORM
 
                 }
 
+
+                updates = updates.Remove(updates.LastIndexOf(','));
+
                 string SQL = $"  UPDATE " + attr.TableName + $" SET {updates}{where};";
+                              
 
 
+                bool result = _connection.ExecuteScript(SQL);
 
+                if (result)
+                {
+                    Message = "Editado com sucesso !";
+                }
+                else
+                {
+                    Message = "Não foi possivel editar !";
+                }
 
-                return _connection.ExecuteScript(SQL);
+                return result;
+
 
             }
-            catch
+            catch(Exception ex)
             {
+                Error = true;
+                Message = ex.Message;
                 return false;
             }
 
@@ -235,6 +256,8 @@ namespace DataBaseLayer.ORM
 
         public virtual bool Remove<T>(T obj)
         {
+            Error = false;
+            Message = "Sem erros";
             try
             {
                 DataBaseFlags.DBFlags attr = (DataBaseFlags.DBFlags)
@@ -262,12 +285,27 @@ namespace DataBaseLayer.ORM
                 string SQL = $"  DELETE FROM " + attr.TableName + $" {where} ;";
 
 
+                bool result = _connection.ExecuteScript(SQL);
 
-                return _connection.ExecuteScript(SQL);
+                if (result)
+                {
+                    Message = "Deletado com sucesso !";
+                }
+                else
+                {
+                    Message = "Não foi possivel deletar !";
+                }
+
+                return result;
+
+                
+                
 
             }
-            catch
+            catch(Exception ex)
             {
+                Error = false;
+                Message = ex.Message;
                 return false;
             }
         }

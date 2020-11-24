@@ -22,14 +22,6 @@ namespace CartorioCS1
         {
             InitializeComponent();
 
-
-            string conString = ConfigurationManager.AppSettings["connString"];
-
-            PG_Connection.ConString = conString;
-
-            _ORM = new ORMBusiness(/*PG_Connection.Instancia encapsula uma classe singleton*/PG_Connection.Instancia);
-
-
         }
 
         private void pnlPanelLateral_Paint(object sender, PaintEventArgs e)
@@ -56,7 +48,7 @@ namespace CartorioCS1
         private void pnlBtnNascimento_Click(object sender, EventArgs e)
         {
             this.pnlContainer.Controls.Clear();
-            this.pnlContainer.Controls.Add(new Controls.ControlBirths(typeof(INascimento), _ORM)
+            this.pnlContainer.Controls.Add(new Controls.GenericScreen(typeof(INascimento), _ORM)
             {
                 Dock = DockStyle.Fill,
                 Over = () => { this.pnlContainer.Controls.Clear(); }
@@ -66,7 +58,7 @@ namespace CartorioCS1
         private void pnlBtnCasamentos_Click(object sender, EventArgs e)
         {
             this.pnlContainer.Controls.Clear();
-            this.pnlContainer.Controls.Add(new Controls.ControlBirths(typeof(ICasamento), _ORM)
+            this.pnlContainer.Controls.Add(new Controls.GenericScreen(typeof(ICasamento), _ORM)
             {
                 Dock = DockStyle.Fill,
                 Over = () => { this.pnlContainer.Controls.Clear(); }
@@ -76,7 +68,7 @@ namespace CartorioCS1
         private void pnlBtnObitos_Click(object sender, EventArgs e)
         {
             this.pnlContainer.Controls.Clear();
-            this.pnlContainer.Controls.Add(new Controls.ControlBirths(typeof(IObito), _ORM)
+            this.pnlContainer.Controls.Add(new Controls.GenericScreen(typeof(IObito), _ORM)
             {
                 Dock = DockStyle.Fill,
                 Over = () => { this.pnlContainer.Controls.Clear(); }
@@ -86,7 +78,7 @@ namespace CartorioCS1
         private void pnlBtnPessoas_Click(object sender, EventArgs e)
         {
             this.pnlContainer.Controls.Clear();
-            this.pnlContainer.Controls.Add(new Controls.ControlBirths(typeof(IPessoa), _ORM)
+            this.pnlContainer.Controls.Add(new Controls.GenericScreen(typeof(IPessoa), _ORM)
             {
                 Dock = DockStyle.Fill,
                 Over = () => { this.pnlContainer.Controls.Clear(); }
@@ -177,6 +169,27 @@ namespace CartorioCS1
             {
                 MessageBox.Show("Tudo bloqueado até criar as tabelas !");
             }
+        }
+
+        private void pnlBtnRelatorios_Click(object sender, EventArgs e)
+        {
+            this.pnlContainer.Controls.Clear();
+            this.pnlContainer.Controls.Add(new Controls.ReportScreen(_ORM)
+            {
+                Dock = DockStyle.Fill,
+                DataGridViewCellClicked = (args) => {
+
+                    this.pnlContainer.Controls.Clear();
+
+                    this.pnlContainer.Controls.Add(new Controls.GenericScreen(typeof(INascimento), _ORM, args)
+                    {
+                        Dock = DockStyle.Fill,
+                        Over = () => { this.pnlContainer.Controls.Clear(); }
+                    });
+                }
+                
+            });
+            
         }
     }
 }

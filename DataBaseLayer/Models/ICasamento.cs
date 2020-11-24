@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DataBaseLayer.Models
 {
+    /// <summary>
+    /// Qualquer classe que implementa a interface IOperation pode utilizar o ORM
+    /// </summary>
     [DataBaseFlags.DBFlags(TableName = "tb_casamento", LabelText = "Protocolo")]
     public interface ICasamento : IOperation
     {

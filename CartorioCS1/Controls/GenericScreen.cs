@@ -15,7 +15,7 @@ using Flags = DataBaseLayer.DataBaseFlags;
 
 namespace CartorioCS1.Controls
 {
-    public partial class ControlBirths : UserControl
+    public partial class GenericScreen : UserControl
     {
 
         public delegate void OverHandler();
@@ -27,7 +27,9 @@ namespace CartorioCS1.Controls
         private IOperation _operation;
 
         private IORM _connection;
-        public ControlBirths(Type operationType, IORM connection)
+
+        
+        public GenericScreen(Type operationType, IORM connection, IOperation boot = null)
         {
             InitializeComponent();
 
@@ -60,10 +62,9 @@ namespace CartorioCS1.Controls
             }
 
             _connection = connection;
+            
 
-            txtValue.KeyPress += Validacoes.Integer_Validation;
-
-            Reload(operationType);
+            Reload(operationType, boot);
 
 
         }
@@ -89,22 +90,41 @@ namespace CartorioCS1.Controls
                     pnlContainer.Controls.Add(new Label()
                     {
                         Text = pi.Name + " : ",
-                        Location = new Point(10, (pnlContainer.Controls.Count * 30) + 10),
-                        Size = new Size(100, 30)
+                        Font = new Font(this.Font.FontFamily, 8),
+                        Location = new Point(30, (pnlContainer.Controls.Count * 30) + 30),
+                        Size = new Size(120, 30)
                     });
 
                     TextBox textBox = new TextBox()
                     {
-                        Location = new Point(120, ((pnlContainer.Controls.Count - 1) * 30) + 10),
+                        Location = new Point(170, ((pnlContainer.Controls.Count - 1) * 30) + 30),
+                        Size = new Size(100, 30),
+                        Font = new Font(this.Font.FontFamily, 8)
                     };
+
+                    if (piAttr.ForeignKey != null)
+                    {
+                        pnlContainer.Controls.Add(new Label()
+                        {
+                            Text = "Deve referenciar um " + piAttr.ForeignKey.ToString(),
+                            Font = new Font(this.Font.FontFamily, 8),
+                            Location = new Point(280, textBox.Location.Y),
+                            Size = new Size(200, 30)
+                        });
+                    }
+
 
                     if (obj != null)
                     {
                         if (obj.Id != 0)
                             textBox.Text = pi.GetValue(obj).ToString();
+
+                        textBox.Enabled = piAttr.Editable;
+
+                        textBox.Enabled = !piAttr.PrimaryKey;
                     }
 
-                    textBox.Enabled = piAttr.Editable;
+
 
                     pnlContainer.Controls.Add(textBox);
 
@@ -161,22 +181,22 @@ namespace CartorioCS1.Controls
         private void btnSalvar_Click(object sender, EventArgs e)
         {
 
-            if (_operation.Id != 0)
-            {
-                MessageBox.Show("Este registro ja existe, voce pode apenas editar ou excluir");
-                return;
-            }
+            //if (_operation.Id != 0)
+            //{
+            //    MessageBox.Show("Este registro ja existe, voce pode apenas editar ou excluir");
+            //    return;
+            //}
 
             foreach (KeyValuePair<PropertyInfo, Control> kp in _bindControlsValues)
             {
                 foreach (PropertyInfo po in _operation.GetType().GetPublicProperties())
                 {
 
-                    
+
 
                     if (po.Name == kp.Key.Name)
                     {
-                      
+
                         if (po.PropertyType == typeof(int))
                         {
                             try
@@ -229,63 +249,134 @@ namespace CartorioCS1.Controls
             }
 
 
-            if (!_operation.Validar()) {
+            if (!_operation.Validar())
+            {
 
                 MessageBox.Show("PREENCHA TODOS OS CAMPOS");
                 return;
             }
-            
+
 
             if (_operation.GetType() == typeof(Pessoa))
             {
-                
-                if (_connection.Save<IPessoa>((IPessoa)_operation))
-                {
-                    MessageBox.Show(_connection.Message);
 
-                    this.Over();
+                if (_operation.Id != 0)
+                {
+                    if (_connection.Edit<IPessoa>((IPessoa)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(_connection.Message);
+                    if (_connection.Save<IPessoa>((IPessoa)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
+
+
             }
             else
             if (_operation.GetType() == typeof(Nascimento))
             {
-                if (_connection.Save<INascimento>((INascimento)_operation))
+                if (_operation.Id != 0)
                 {
-                    MessageBox.Show(_connection.Message);
-                    this.Over();
+                    if (_connection.Edit<INascimento>((INascimento)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(_connection.Message);
+                    if (_connection.Save<INascimento>((INascimento)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
+
             }
             else
             if (_operation.GetType() == typeof(Obito))
             {
-                if (_connection.Save<IObito>((IObito)_operation))
+                if (_operation.Id != 0)
                 {
-                    MessageBox.Show(_connection.Message);
-                    this.Over();
+                    if (_connection.Edit<IObito>((IObito)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(_connection.Message);
+                    if (_connection.Save<IObito>((IObito)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
             }
             else
             {
-                if (_connection.Save<ICasamento>((Casamento)_operation))
+                if (_operation.Id != 0)
                 {
-                    MessageBox.Show(_connection.Message);
-                    this.Over();
+                    if (_connection.Edit<ICasamento>((ICasamento)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(_connection.Message);
+                    if (_connection.Save<ICasamento>((ICasamento)_operation))
+                    {
+                        MessageBox.Show(_connection.Message);
+
+                        this.Over();
+                    }
+                    else
+                    {
+                        MessageBox.Show(_connection.Message);
+                    }
                 }
             }
 
@@ -345,6 +436,17 @@ namespace CartorioCS1.Controls
             {
                 MessageBox.Show("Localize um registro");
             }
+        }
+
+        private void RefHoverStart(object sender, EventArgs e)
+        {
+            Padroes.HoverStart((Control)sender);
+        }
+
+        private void RefHoverEnd(object sender, EventArgs e)
+        {
+
+            Padroes.HoverEnd((Control)sender);
         }
     }
 }

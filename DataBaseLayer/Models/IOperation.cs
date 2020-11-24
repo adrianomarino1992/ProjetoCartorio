@@ -5,7 +5,8 @@ using System.Text;
 namespace DataBaseLayer.Models
 {
     /// <summary>
-    /// Interface mais primitiva que extiste
+    /// Tipo mais primitivo do ORM
+    /// Qualquer classe que implementa a interface IOperation pode utilizar o ORM
     /// </summary>
     public interface IOperation
     {

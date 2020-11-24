@@ -154,6 +154,7 @@
             this.pnlBtnPessoas.Controls.Add(this.pictureBox6);
             this.pnlBtnPessoas.Controls.Add(this.label7);
             this.pnlBtnPessoas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlBtnPessoas.Enabled = false;
             this.pnlBtnPessoas.Location = new System.Drawing.Point(9, 219);
             this.pnlBtnPessoas.Name = "pnlBtnPessoas";
             this.pnlBtnPessoas.Size = new System.Drawing.Size(197, 62);
@@ -196,10 +197,12 @@
             this.pnlBtnRelatorios.Controls.Add(this.pictureBox5);
             this.pnlBtnRelatorios.Controls.Add(this.label6);
             this.pnlBtnRelatorios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlBtnRelatorios.Enabled = false;
             this.pnlBtnRelatorios.Location = new System.Drawing.Point(9, 490);
             this.pnlBtnRelatorios.Name = "pnlBtnRelatorios";
             this.pnlBtnRelatorios.Size = new System.Drawing.Size(197, 62);
             this.pnlBtnRelatorios.TabIndex = 5;
+            this.pnlBtnRelatorios.Click += new System.EventHandler(this.pnlBtnRelatorios_Click);
             this.pnlBtnRelatorios.MouseEnter += new System.EventHandler(this.RefHoverStart);
             this.pnlBtnRelatorios.MouseLeave += new System.EventHandler(this.RefHoverEnd);
             // 
@@ -213,6 +216,7 @@
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 1;
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pnlBtnRelatorios_Click);
             this.pictureBox5.MouseEnter += new System.EventHandler(this.RefHoverStart);
             this.pictureBox5.MouseLeave += new System.EventHandler(this.RefHoverEnd);
             // 
@@ -226,6 +230,7 @@
             this.label6.Size = new System.Drawing.Size(70, 16);
             this.label6.TabIndex = 0;
             this.label6.Text = "Relatorios";
+            this.label6.Click += new System.EventHandler(this.pnlBtnRelatorios_Click);
             this.label6.MouseEnter += new System.EventHandler(this.RefHoverStart);
             this.label6.MouseLeave += new System.EventHandler(this.RefHoverEnd);
             // 
@@ -259,6 +264,7 @@
             this.pnlBtnObitos.Controls.Add(this.pictureBox4);
             this.pnlBtnObitos.Controls.Add(this.label3);
             this.pnlBtnObitos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlBtnObitos.Enabled = false;
             this.pnlBtnObitos.Location = new System.Drawing.Point(9, 423);
             this.pnlBtnObitos.Name = "pnlBtnObitos";
             this.pnlBtnObitos.Size = new System.Drawing.Size(197, 62);
@@ -301,6 +307,7 @@
             this.pnlBtnCasamentos.Controls.Add(this.pictureBox3);
             this.pnlBtnCasamentos.Controls.Add(this.label2);
             this.pnlBtnCasamentos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlBtnCasamentos.Enabled = false;
             this.pnlBtnCasamentos.Location = new System.Drawing.Point(9, 355);
             this.pnlBtnCasamentos.Name = "pnlBtnCasamentos";
             this.pnlBtnCasamentos.Size = new System.Drawing.Size(197, 62);
@@ -343,6 +350,7 @@
             this.pnlBtnNascimento.Controls.Add(this.pictureBox2);
             this.pnlBtnNascimento.Controls.Add(this.label1);
             this.pnlBtnNascimento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlBtnNascimento.Enabled = false;
             this.pnlBtnNascimento.Location = new System.Drawing.Point(9, 287);
             this.pnlBtnNascimento.Name = "pnlBtnNascimento";
             this.pnlBtnNascimento.Size = new System.Drawing.Size(197, 62);
@@ -405,19 +413,19 @@
             this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContainer.Location = new System.Drawing.Point(218, 0);
             this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(705, 622);
+            this.pnlContainer.Size = new System.Drawing.Size(842, 622);
             this.pnlContainer.TabIndex = 1;
             // 
             // Home
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(923, 622);
+            this.ClientSize = new System.Drawing.Size(1060, 622);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlPanelLateral);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(911, 610);
+            this.MinimumSize = new System.Drawing.Size(1076, 661);
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cartorio de registros";

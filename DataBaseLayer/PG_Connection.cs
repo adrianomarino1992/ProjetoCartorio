@@ -6,6 +6,9 @@ using Npgsql;
 
 namespace DataBaseLayer
 {
+    /// <summary>
+    /// Implementação default, porem o ORM necessita de qualquer classe que implementa a interface IConnection
+    /// </summary>
     public class PG_Connection : IConnection
     {
         private static NpgsqlConnection _connection;
